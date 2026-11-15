@@ -179,15 +179,13 @@ class DebugVisualizer:
                     cv2.FONT_HERSHEY_SIMPLEX, 0.7,
                     config.VIS_TEXT_COLOR, 2)
 
-        # Quality score con barra de color
-        q_color = self._quality_color(quality)
-        cv2.putText(panel, f"Q={quality:.2f}", (10, h - 35),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, q_color, 2)
-
-        # Peso efectivo
-        cv2.putText(panel, f"W={weight:.2f}", (10, h - 12),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5,
-                    config.VIS_TEXT_COLOR, 1)
+        # [TEMP captura] Q y W grandes con borde negro (sin caja)
+        for text, y, color in ((f"Q={quality:.2f}", h - 62, (0, 255, 0)),
+                               (f"W={weight:.2f}", h - 12, (0, 255, 255))):
+            cv2.putText(panel, text, (10, y), cv2.FONT_HERSHEY_SIMPLEX,
+                        1.4, (0, 0, 0), 10)
+            cv2.putText(panel, text, (10, y), cv2.FONT_HERSHEY_SIMPLEX,
+                        1.4, color, 4)
 
         # Heading angle
         if result.trajectory.valid:
@@ -294,6 +292,12 @@ class DebugVisualizer:
         cv2.putText(panel, fps_text, (x_margin, y_base + 56),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.45,
                     (180, 180, 180), 1)
+
+        # [TEMP captura] Quality global grande a la derecha
+        q_text = f"QUALITY={fusion.global_quality:.2f}"
+        (tw, _), _ = cv2.getTextSize(q_text, cv2.FONT_HERSHEY_SIMPLEX, 1.4, 4)
+        cv2.putText(panel, q_text, (width - tw - 20, 65),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1.4, (0, 255, 255), 4)
 
         # Barra visual de steering
         self._draw_steering_bar(panel, width, nav_cmd)

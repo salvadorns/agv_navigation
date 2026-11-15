@@ -11,7 +11,9 @@ import numpy as np
 import cv2
 from ultralytics import YOLO
 
-YOLOV8N_PATH = r"c:\Users\Novillo\OneDrive\Desktop\autonomouse vehicle\yolov8n.pt"
+_YOLOV8N_WIN_PATH = r"c:\Users\Novillo\OneDrive\Desktop\autonomouse vehicle\yolov8n.pt"
+# Si no existe el path de Windows, usar "yolov8n.pt" (ultralytics lo descarga automáticamente)
+YOLOV8N_PATH = _YOLOV8N_WIN_PATH if os.path.exists(_YOLOV8N_WIN_PATH) else "yolov8n.pt"
 TWOCAMS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "2cams.pt")
 
 # Clases COCO de interés: id → (nombre, color BGR)
