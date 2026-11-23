@@ -272,7 +272,7 @@ El layout es una fila de 3 paneles (LEFT, FRONT, RIGHT) de 640×480 más un pane
   - `POST /update` con el cuerpo `data=V1_V2_V3` (por ejemplo `48_1500_1`): captura un frame de la cámara (prueba el índice 0 y después el 1) y lo guarda en `/home/admin/camara_imagenes/YYYY-MM-DD_HH-MM-SS_stemIn-V1_stemOut-V2_ozh-V3.jpg`.
   - `GET /healthz` responde `{"status": "running"}`.
   - Según el README, el mapeo es: `stemIn` = voltaje de batería, `stemOut` = RPM de los motores, `ozh` = estado (0/1).
-- La contraseña del hotspot está en texto plano en el README y en el script.
+- La contraseña del hotspot no está en el repo: `setup_hotspot.sh` la lee de la variable de entorno `HOTSPOT_PASS` (`sudo HOTSPOT_PASS='...' bash setup_hotspot.sh`) y corta con error si falta. Ojo: sigue visible en el historial de git (commit `9f333ae`).
 
 ---
 

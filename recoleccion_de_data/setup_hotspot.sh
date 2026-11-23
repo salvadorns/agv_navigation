@@ -1,8 +1,12 @@
 #!/bin/bash
 # Setup del Hotspot Wi-Fi en la Raspberry Pi 4B
-# Ejecutar UNA SOLA VEZ como root: sudo bash setup_hotspot.sh
+# Ejecutar UNA SOLA VEZ como root, pasando la contraseña por variable de entorno:
+#   sudo HOTSPOT_PASS='la_contraseña' bash setup_hotspot.sh
+# (sudo descarta las variables exportadas, por eso va en la misma línea)
 
 set -e
+
+: "${HOTSPOT_PASS:?Definir HOTSPOT_PASS con la contraseña del hotspot (mín. 8 caracteres)}"
 
 echo "==> Instalando dependencias..."
 apt-get update -qq
@@ -12,7 +16,7 @@ echo "==> Creando Hotspot con NetworkManager..."
 nmcli device wifi hotspot \
     ifname wlan0 \
     ssid "Cuadri_Net" \
-    password "cuadri1234" \
+    password "$HOTSPOT_PASS" \
     con-name "Cuadri_Hotspot"
 
 # Fijar la IP del servidor en 10.42.0.1

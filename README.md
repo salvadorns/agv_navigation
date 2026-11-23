@@ -241,9 +241,11 @@ Ejemplo con `data=48_1500_1`:
 # Copiar el servidor a la ruta que espera el servicio systemd:
 cp recoleccion_de_data/servidor_telemetria.py /home/admin/servidor_telemetria.py
 
-# Una sola vez, como root:
-sudo bash recoleccion_de_data/setup_hotspot.sh
+# Una sola vez, como root (la contraseña del hotspot va por variable de entorno):
+sudo HOTSPOT_PASS='<contraseña>' bash recoleccion_de_data/setup_hotspot.sh
 ```
+
+La contraseña no está en el repo; pedirla al responsable del proyecto.
 
 El servicio queda activo automáticamente en cada arranque (`systemctl status telemetria`).
 
@@ -265,7 +267,7 @@ curl http://localhost:5000/healthz
 
 ## Configuración del ESP32 (para el ingeniero electrónico)
 
-- **SSID:** `Cuadri_Net` | **Password:** `cuadri1234`
+- **SSID:** `Cuadri_Net` | **Password:** pedirla al responsable del proyecto (no se guarda en el repo)
 - **Endpoint:** `http://10.42.0.1:5000/update`
 - **Método:** HTTP POST
 - **Body:** `data=VALOR1_VALOR2_VALOR3`
